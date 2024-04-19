@@ -1,0 +1,30 @@
+-- Function to check for an item above the turtle
+function checkForDrop()
+  local result, item = turtle.inspectUp()
+  return result and item.name == "minecraft:your_trigger_item"
+end
+
+-- Function to pick up a cake from a chest
+function getCakeFromChest()
+  turtle.select(1) -- select the first slot
+  turtle.turnLeft() -- assuming the chest is to the left
+  turtle.suck() -- take item from the chest, assuming cake is the first item
+  turtle.turnRight() -- turn back to original direction
+end
+
+-- Function to place the cake
+function placeCake()
+  turtle.select(1) -- select the slot with the cake
+  turtle.forward() -- move to the place where cake should be placed
+  turtle.placeDown() -- place the cake
+  turtle.back() -- move back to the original position
+end
+
+-- Main program loop
+while true do
+  if checkForDrop() then
+    getCakeFromChest()
+    placeCake()
+  end
+  sleep(1) -- sleep for 1 second before checking again
+end
